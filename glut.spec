@@ -11,6 +11,7 @@ Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 URL:		http://reality.sgi.com/mjk_asd/glut3/
 BuildRequires:	OpenGL-devel
+BuildRequires:	/bin/csh
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	Mesa-glut
 Requires:	OpenGL
