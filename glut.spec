@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -16,7 +16,6 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
-%define		_examplesdir	/usr/src/examples
 
 %description
 A 3-D graphics library which uses the OpenGL API.
@@ -102,18 +101,18 @@ cp ../../linux/Makefile .
 #prepare to make manuals
 (cd ../../man;xmkmf)
 (cd ../../man/gle; \
-    sed s/XXX/\$\(MANDIR\)/ Imakefile > Imakefile.sed; \
-    rm -f Imakefile; mv Imakefile.sed Imakefile; \
-    xmkmf; \
-    sed s/install::/ii::/ Makefile >Makefile.sed; \
-    sed s/all::// Makefile.sed >Makefile.sed2; \
-    rm -f Makefile; rm -f Makefile.sed; \
-    sed s/ii::/install::/ Makefile.sed2 >Makefile)
+	sed s/XXX/\$\(MANDIR\)/ Imakefile > Imakefile.sed; \
+	rm -f Imakefile; mv Imakefile.sed Imakefile; \
+	xmkmf; \
+	sed s/install::/ii::/ Makefile >Makefile.sed; \
+	sed s/all::// Makefile.sed >Makefile.sed2; \
+	rm -f Makefile; rm -f Makefile.sed; \
+	sed s/ii::/install::/ Makefile.sed2 >Makefile)
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man3,%{_includedir}} \
-	$RPM_BUILD_ROOT%{_examplesdir}/%{name}
+	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 install lib/glut/libglut.so.*.* $RPM_BUILD_ROOT%{_libdir}
 ln -sf libglut.so.3 $RPM_BUILD_ROOT%{_libdir}/libglut.so
@@ -124,13 +123,10 @@ cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 
 (cd man; make DESTDIR=$RPM_BUILD_ROOT MANDIR=%{_mandir}/man3 install.man)
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man3/* \
-	NOTICE CHANGES FAQ.glut README*
+gzip -9nf NOTICE CHANGES FAQ.glut README*
 
 #installing examples...
-(cd progs; cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name})
+(cd progs; cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name})-%{version}
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -140,12 +136,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {CHANGES,NOTICE,FAQ.glut,README*}.gz
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc %{name}-3.spec.ps.gz
+%doc *.gz
 %{_includedir}/GL/*.h
 %{_includedir}/mui
 %{_libdir}/lib*.so
@@ -157,4 +152,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files examples
 %defattr(644,root,root,755)
-%{_examplesdir}/%{name}
+%{_examplesdir}/%{name}-%{version}
