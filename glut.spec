@@ -5,14 +5,14 @@ Version:	3.7
 Release:	9
 License:	GPL
 Group:		X11/Libraries
-Source0:	http://www.opengl.org/developers/documentation/glut/%{name}-%{version}.tar.gz
+Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
 # Source0-md5: dc932666e2a1c8a0b148a4c32d111ef3
-Source1:	http://www.opengl.org/developers/documentation/glut/%{name}-3.spec.ps.gz
+Source1:	http://www.opengl.org/resources/libraries/glut/%{name}-3.spec.ps.gz
 # Source1-md5:	7be4cfb04953bca413482890279c8b31
 Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-lib64.patch
-URL:		http://www.opengl.org/developers/documentation/
+URL:		http://www.opengl.org/resources/libraries/glut.html
 BuildRequires:	OpenGL-devel
 BuildRequires:	/bin/csh
 Requires:	OpenGL
@@ -87,26 +87,34 @@ cd lib/glut
 rm -f Makefile
 cp -f ../../linux/Makefile .
 %{__make} depend
-%{__make} "BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags} -fPIC" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags} -fPIC"
+%{__make} \
+	"BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
+	"CDEBUGFLAGS=" \
+	"CCOPTIONS=%{rpmcflags} -fPIC" \
+	"CXXDEBUGFLAGS=" \
+	"CXXOPTIONS=%{rpmcflags} -fPIC"
 
 #make libglsmap.a
-(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{rpmcflags}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags}")
+%{__make} -C glsmap \
+	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
+	"CDEBUGFLAGS=" \
+	"CCOPTIONS=%{rpmcflags}" \
+	"CXXDEBUGFLAGS=" \
+	"CXXOPTIONS=%{rpmcflags}"
 
 #make libmui.a
-(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{rpmcflags}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags}")
+%{__make} -C mui \
+	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
+	"CDEBUGFLAGS=" \
+	"CCOPTIONS=%{rpmcflags}" \
+	"CXXDEBUGFLAGS=" \
+	"CXXOPTIONS=%{rpmcflags}")
 
 #prepare to make manuals
-(cd ../../man
-	sed s/gle// Imakefile > Imakefile.tmp
-	mv -f Imakefile.tmp Imakefile
-	xmkmf
-)
+cd ../../man
+sed s/gle// Imakefile > Imakefile.tmp
+mv -f Imakefile.tmp Imakefile
+xmkmf
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -121,12 +129,14 @@ install lib/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
 rm -f include/GL/tube.h
 cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 
-(cd man; make DESTDIR=$RPM_BUILD_ROOT MANDIR=%{_mandir}/man3 install.man)
+%{__make} -C man install.man \
+	DESTDIR=$RPM_BUILD_ROOT \
+	MANDIR=%{_mandir}/man3
 
 #installing examples...
-(cd progs
+cd progs
 find . -name Makefile.win -o -name Makefile.sgi -o -name Makefile.bak | xargs rm -f
-cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version})
+cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
