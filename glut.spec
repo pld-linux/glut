@@ -83,11 +83,12 @@ install %{SOURCE1} .
 rm -f Glut.cf
 cp -f linux/Glut.cf .
 ./mkmkfiles.imake
-cd lib/glut
-rm -f Makefile
-cp -f ../../linux/Makefile .
-%{__make} depend
-%{__make} \
+
+rm -f lib/glut/Makefile
+cp -f linux/Makefile lib/glut
+
+%{__make} -C lib/glut depend
+%{__make} -C lib/glut \
 	"BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
 	"CDEBUGFLAGS=" \
 	"CCOPTIONS=%{rpmcflags} -fPIC" \
@@ -95,7 +96,7 @@ cp -f ../../linux/Makefile .
 	"CXXOPTIONS=%{rpmcflags} -fPIC"
 
 #make libglsmap.a
-%{__make} -C glsmap \
+%{__make} -C lib/glsmap \
 	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
 	"CDEBUGFLAGS=" \
 	"CCOPTIONS=%{rpmcflags}" \
@@ -103,18 +104,19 @@ cp -f ../../linux/Makefile .
 	"CXXOPTIONS=%{rpmcflags}"
 
 #make libmui.a
-%{__make} -C mui \
+%{__make} -C lib/mui \
 	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
 	"CDEBUGFLAGS=" \
 	"CCOPTIONS=%{rpmcflags}" \
 	"CXXDEBUGFLAGS=" \
-	"CXXOPTIONS=%{rpmcflags}")
+	"CXXOPTIONS=%{rpmcflags}"
 
 #prepare to make manuals
-cd ../../man
+cd man
 sed s/gle// Imakefile > Imakefile.tmp
 mv -f Imakefile.tmp Imakefile
 xmkmf
+cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
