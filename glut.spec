@@ -11,7 +11,7 @@ Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
 URL:		http://reality.sgi.com/mjk_asd/glut3/
 Obsoletes:	Mesa-glut
 BuildRequires:	OpenGL-devel
-Buildroot:	/tmp/%{name}-%{version}-root-%(id -u -n)
+Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -54,8 +54,7 @@ Biblioteki statyczne dla biblioteki GLUT.
 %package examples
 Summary:	GLUT demonstration programs
 Summary(pl):	GLUT programy demonstracyjne
-Group:		X11/Development/Examples
-Group(pl):	X11/Programowanie/Przyk³ady
+Group:		X11/Development/Libraries
 
 %description examples
 Sample program.
@@ -138,7 +137,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %files static
-%attr(644,root,root) %{_libdir}/lib*.a
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
 
 %files examples
 %defattr(644,root,root,755)
