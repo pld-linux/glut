@@ -36,7 +36,7 @@ Obsoletes:	Mesa-glut-devel
 %description devel
 Header files needed for development aplications using GLUT library.
 
-%description -l pl devel
+%description devel -l pl
 Pliki nag³ówkowe dla biblioteki GLUT.
 
 %package static
@@ -49,7 +49,7 @@ Obsoletes:	Mesa-glut-static
 %description static
 The static version of the GLUT library.
 
-%description -l pl static
+%description static -l pl
 Biblioteki statyczne dla biblioteki GLUT.
 
 %package examples
@@ -60,7 +60,7 @@ Group:		X11/Development/Libraries
 %description examples
 Sample programs.
 
-%description -l pl examples
+%description examples -l pl
 Przyk³adowe programy.
 
 %prep
