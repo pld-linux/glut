@@ -2,15 +2,20 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	8
+Release:	9
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
 Group(es):	X11/Bibliotecas
+Group(fr):	X11/Librairies
 Group(pl):	X11/Biblioteki
+Group(pt_BR):	X11/Bibliotecas
+Group(ru):	X11/Библиотеки
+Group(uk):	X11/Б╕бл╕отеки
 Source0:	http://reality.sgi.com/mjk_asd/glut3/%{name}-%{version}.tar.gz
 Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
 Patch0:		%{name}-examples-paths.patch
+Patch1:		%{name}-link.patch
 URL:		http://reality.sgi.com/mjk_asd/glut3/
 BuildRequires:	OpenGL-devel
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -32,7 +37,12 @@ Summary:	GLUT Development environment
 Summary(pl):	╕rodowisko programistyczne GLUT
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 Requires:	OpenGL-devel
 Obsoletes:	Mesa-glut-devel
@@ -48,7 +58,12 @@ Summary:	GLUT Static libraries
 Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 Obsoletes:	Mesa-glut-static
 
@@ -63,7 +78,12 @@ Summary:	GLUT demonstration programs
 Summary(pl):	GLUT programy demonstracyjne
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 
 %description examples
 Sample programs.
@@ -73,17 +93,18 @@ PrzykЁadowe programy.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 install %{SOURCE1} .
 
 %build
 rm -f Glut.cf
-cp linux/Glut.cf .
+cp -f linux/Glut.cf .
 ./mkmkfiles.imake
 cd lib/glut
 rm -f Makefile
-cp ../../linux/Makefile .
+cp -f ../../linux/Makefile .
 %{__make} depend
 %{__make} "BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
 	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags} -fPIC" \
@@ -128,11 +149,11 @@ gzip -9nf NOTICE CHANGES FAQ.glut README*
 find . -name Makefile.win -o -name Makefile.sgi -o -name Makefile.bak | xargs rm -f
 cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version})
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)

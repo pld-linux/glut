@@ -1,0 +1,11 @@
+--- glut-3.7/linux/Makefile.orig	Sat Aug  8 02:13:27 1998
++++ glut-3.7/linux/Makefile	Sat Oct 20 18:22:30 2001
+@@ -531,7 +531,7 @@
+ all:: libglut.so
+ 
+ libglut.so: $(OBJS)
+-	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS)
++	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib -lX11 -lXmu -lXi -lGL -lGLU -lm
+ 	$(_NULLCMD_)
+ 
+ clean::
