@@ -25,34 +25,44 @@ A 3-D graphics library which uses the OpenGL API.
 Biblioteka graficzna 3D u¿ywaj±ca API z OpenGLa.
 
 %package	devel
-Summary:	GLUT Devel
-Summary(pl):	GLUT Devel
+Summary:	GLUT Development environment
+Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Obsoletes:	Mesa-glut-devel
+Requires:	%{name} = %{version}
 
 %description devel
+Header files needed for development aplications using GLUT library.
+
 %description -l pl devel
+Pliki nag³ówkowe dla biblioteki GLUT.
 
 %package	static
-Summary:	GLUT Static
-Summary(pl):	GLUT Static
+Summary:	GLUT Static libraries
+Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Obsoletes:	Mesa-glut-static
+Requires:	%{name}-devel = %{version}
 
 %description static
+The static version of the GLUT library.
+
 %description -l pl static
+Biblioteki statyczne dla biblioteki GLUT.
 
 %package	examples
 Summary:	GLUT demonstration programs.
 Summary(pl):	GLUT programy demonstracyjne.
 Group:		X11/Development/Examples
 Group(pl):	X11/Programowanie/Przyk³ady
-BuildRequires:	Mesa-devel >= 3.0
 
 %description examples
+Sample program.
+
 %description -l pl examples
+Przyk³adowe programy.
 
 %package	doc
 Summary:	GLUT documentation
@@ -61,7 +71,10 @@ Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 
 %description doc
+GLUT documentation.
+
 %description -l pl doc
+Dokumentacja dla biblioteki GLUT.
 
 %prep
 %setup -q
