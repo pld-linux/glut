@@ -1,0 +1,59 @@
+diff -durN -x '*~' glut-3.7.orig/linux/Makefile glut-3.7/linux/Makefile
+--- glut-3.7.orig/linux/Makefile	2004-12-29 17:34:31.000000000 +0000
++++ glut-3.7/linux/Makefile	2004-12-29 17:37:14.561981560 +0000
+@@ -87,8 +87,8 @@
+       IXXINCLUDES = -i '<X11/Fresco/enter-scope.h>'
+ 
+           INCROOT = /usr/X11R6/include
+-        USRLIBDIR = /usr/X11R6/lib
+-         SHLIBDIR = /usr/X11R6/lib
++        USRLIBDIR = /usr/X11R6/lib64
++         SHLIBDIR = /usr/X11R6/lib64
+        LINTLIBDIR = $(USRLIBDIR)/lint
+           MANPATH = /usr/X11R6/man
+     MANSOURCEPATH = $(MANPATH)/man
+@@ -150,7 +150,7 @@
+      STD_INCLUDES =
+   STD_CPP_DEFINES = -traditional -Dlinux -D__i386__ -D_POSIX_SOURCE -D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE
+       STD_DEFINES = -Dlinux -D__i386__ -D_POSIX_SOURCE -D_BSD_SOURCE -D_GNU_SOURCE -DX_LOCALE
+- EXTRA_LOAD_FLAGS = -Wl,-rpath,/usr/X11R6/lib
++ EXTRA_LOAD_FLAGS = -Wl,-rpath,/usr/X11R6/lib64
+   EXTRA_LDOPTIONS =
+   EXTRA_LIBRARIES =
+              TAGS = ctags
+@@ -531,7 +531,7 @@
+ all:: libglut.so
+ 
+ libglut.so: $(OBJS)
+-	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib -lX11 -lXmu -lXi -lGL -lGLU -lm
++	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib64 -lX11 -lXmu -lXi -lGL -lGLU -lm
+ 	$(_NULLCMD_)
+ 
+ clean::
+diff -durN -x '*~' glut-3.7.orig/progs/Glut.cf glut-3.7/progs/Glut.cf
+--- glut-3.7.orig/progs/Glut.cf	2004-12-29 17:34:31.000000000 +0000
++++ glut-3.7/progs/Glut.cf	2004-12-29 17:38:23.774459664 +0000
+@@ -104,15 +104,15 @@
+ #endif
+ 
+ #ifndef AlphaArchitecture
+-DEPGLUT = /usr/X11R6/lib/libglut.so
+-GLUT = -L/usr/X11R6/lib -lglut
++DEPGLUT = /usr/X11R6/lib64/libglut.so
++GLUT = -L/usr/X11R6/lib64 -lglut
+ #endif
+-DEPMUI = /usr/X11R6/lib/libmui.a
+-MUI = -L/usr/X11R6/lib -lmui
+-DEPGLE = /usr/X11R6/lib/libgle.a
+-GLE = -L/usr/X11R6/lib -lgle
+-DEPGLSMAP = /usr/X11R6/lib/libglsmap.a
+-GLSMAP = -L/usr/X11R6/lib -lglsmap
++DEPMUI = /usr/X11R6/lib64/libmui.a
++MUI = -L/usr/X11R6/lib64 -lmui
++DEPGLE = /usr/X11R6/lib64/libgle.a
++GLE = -L/usr/X11R6/lib64 -lgle
++DEPGLSMAP = /usr/X11R6/lib64/libglsmap.a
++GLSMAP = -L/usr/X11R6/lib64 -lglsmap
+ 
+ CXXEXTRA_INCLUDES = -I/usr/include/CC $(EXTRA_INCLUDES)
+ GLUT_INVENTOR_DEPLIBS = $(GLUT_DEPLIBS)

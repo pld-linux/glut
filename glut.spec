@@ -11,6 +11,7 @@ Source1:	http://www.opengl.org/developers/documentation/glut/%{name}-3.spec.ps.g
 # Source1-md5:	7be4cfb04953bca413482890279c8b31
 Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
+Patch2:		%{name}-lib64.patch
 URL:		http://www.opengl.org/developers/documentation/
 BuildRequires:	OpenGL-devel
 BuildRequires:	/bin/csh
@@ -72,6 +73,9 @@ Przyk³adowe programy.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%ifarch amd64
+%patch2 -p1
+%endif
 
 install %{SOURCE1} .
 
