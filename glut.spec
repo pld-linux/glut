@@ -79,24 +79,24 @@ cd lib/glut
 rm -f Makefile
 cp ../../linux/Makefile .
 %{__make} depend
-%{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC"
+%{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC"
 
 #make libgle.a
-(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
+(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #make libglsmap.a
-(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
+(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #make libmui.a
-(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
+(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #prepare to make manuals
 (cd ../../man;xmkmf)
