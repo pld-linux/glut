@@ -5,6 +5,7 @@ Version:	3.7
 Release:	4
 License:	GPL
 Group:		X11/Libraries
+Group(de):	X11/Libraries
 Group(pl):	X11/Biblioteki
 Source0:	http://reality.sgi.com/mjk_asd/glut3/%{name}-%{version}.tar.gz
 Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
@@ -27,6 +28,7 @@ Biblioteka graficzna 3D u¿ywaj±ca API z OpenGL.
 Summary:	GLUT Development environment
 Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Obsoletes:	Mesa-glut-devel
 Requires:	%{name} = %{version}
@@ -41,6 +43,7 @@ Pliki nag³ówkowe dla biblioteki GLUT.
 Summary:	GLUT Static libraries
 Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Obsoletes:	Mesa-glut-static
 Requires:	%{name}-devel = %{version}
@@ -55,6 +58,8 @@ Biblioteki statyczne dla biblioteki GLUT.
 Summary:	GLUT demonstration programs
 Summary(pl):	GLUT programy demonstracyjne
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(pl):	X11/Programowanie/Biblioteki
 
 %description examples
 Sample program.
