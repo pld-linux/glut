@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Libraries
 Group(pl):	X11/Biblioteki
