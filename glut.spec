@@ -14,9 +14,9 @@ Patch1:		%{name}-link.patch
 URL:		http://www.opengl.org/developers/documentation/
 BuildRequires:	OpenGL-devel
 BuildRequires:	/bin/csh
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	Mesa-glut
 Requires:	OpenGL
+Obsoletes:	Mesa-glut
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
