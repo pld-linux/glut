@@ -35,6 +35,7 @@ Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	OpenGL-devel
+Conflicts:	XFree86-driver-nvidia
 Obsoletes:	Mesa-glut-devel
 
 %description devel
