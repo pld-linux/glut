@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	6
+Release:	7
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -126,7 +126,7 @@ cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 gzip -9nf NOTICE CHANGES FAQ.glut README*
 
 #installing examples...
-(cd progs; cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name})-%{version}
+(cd progs; cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version})
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
