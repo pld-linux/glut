@@ -75,16 +75,24 @@ cd lib/glut
 rm -f Makefile
 cp ../../linux/Makefile .
 %{__make} depend
-%{__make} CXXDEBUGFLAGS="$RPM_OPT_FALGS"
+%{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS -fPIC" \
+	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS -fPIC" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS -fPIC"
 
 #make libgle.a
-(cd ../gle;make CXXDEBUGFLAGS="$RPM_OPT_FALGS")
+(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
+	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
 
 #make libglsmap.a
-(cd ../glsmap;make CXXDEBUGFLAGS="$RPM_OPT_FALGS")
+(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
+	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
 
 #make libmui.a
-(cd ../mui;make CXXDEBUGFLAGS="$RPM_OPT_FALGS")
+(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
+	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
 
 #prepare to make manuals
 (cd ../../man;xmkmf)
@@ -103,6 +111,7 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man3,%{_includedir}} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}
 
 install lib/glut/libglut.so.*.* $RPM_BUILD_ROOT%{_libdir}
+ln -sf libglut.so.3 $RPM_BUILD_ROOT%{_libdir}/libglut.so
 
 install lib/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
 
