@@ -74,8 +74,8 @@ cp linux/Glut.cf .
 cd lib/glut
 rm -f Makefile
 cp ../../linux/Makefile .
-make depend
-make CXXDEBUGFLAGS="$RPM_OPT_FALGS"
+%{__make} depend
+%{__make} CXXDEBUGFLAGS="$RPM_OPT_FALGS"
 
 #make libgle.a
 (cd ../gle;make CXXDEBUGFLAGS="$RPM_OPT_FALGS")
