@@ -2,9 +2,9 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	11
+Release:	12
 License:	GPL
-Group:		X11/Libraries
+Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
 # Source0-md5: dc932666e2a1c8a0b148a4c32d111ef3
 Source1:	http://www.opengl.org/resources/libraries/glut/%{name}-3.spec.ps.gz
@@ -19,9 +19,6 @@ Requires:	OpenGL
 Obsoletes:	Mesa-glut
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
-
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %description
@@ -33,7 +30,7 @@ Biblioteka graficzna 3D u¿ywaj±ca API z OpenGL.
 %package devel
 Summary:	GLUT Development environment
 Summary(pl):	¦rodowisko programistyczne GLUT
-Group:		X11/Development/Libraries
+Group:		Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	OpenGL-devel
 Obsoletes:	Mesa-glut-devel
@@ -47,7 +44,7 @@ Pliki nag³ówkowe dla biblioteki GLUT.
 %package static
 Summary:	GLUT Static libraries
 Summary(pl):	Biblioteki statyczne do biblioteki GLUT
-Group:		X11/Development/Libraries
+Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 Obsoletes:	Mesa-glut-static
 
@@ -60,7 +57,7 @@ Biblioteki statyczne dla biblioteki GLUT.
 %package examples
 Summary:	GLUT demonstration programs
 Summary(pl):	GLUT programy demonstracyjne
-Group:		X11/Development/Libraries
+Group:		Development/Libraries
 
 %description examples
 Sample programs.
