@@ -134,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{name}-3.spec.ps.gz
 %{_includedir}/GL/*.h
 %{_includedir}/mui
+%{_libdir}/lib*.so
 %{_mandir}/man3/*
 
 %files static
