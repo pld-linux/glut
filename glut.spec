@@ -1,4 +1,5 @@
 Summary:	OpenGL Utility Toolkit (GLUT)
+Summary(pl):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do u¿ywania z OpenGL
 Name:		glut
 Version:	3.7
 Release:	12
@@ -30,7 +31,7 @@ Biblioteka graficzna 3D u¿ywaj±ca API z OpenGL.
 Summary:	GLUT Development environment
 Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-devel
 Obsoletes:	Mesa-glut-devel
 
@@ -44,7 +45,7 @@ Pliki nag³ówkowe dla biblioteki GLUT.
 Summary:	GLUT Static libraries
 Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 Obsoletes:	Mesa-glut-static
 
 %description static
