@@ -114,8 +114,6 @@ cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 
 (cd man; make DESTDIR=$RPM_BUILD_ROOT MANDIR=%{_mandir}/man3 install.man)
 
-gzip -9nf NOTICE CHANGES FAQ.glut README*
-
 #installing examples...
 (cd progs
 find . -name Makefile.win -o -name Makefile.sgi -o -name Makefile.bak | xargs rm -f
@@ -133,7 +131,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.gz
+%doc NOTICE CHANGES FAQ.glut README*
 %{_includedir}/GL/*.h
 %{_includedir}/mui
 %{_libdir}/lib*.so
