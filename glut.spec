@@ -16,6 +16,9 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	Mesa-glut
 Requires:	OpenGL
 
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
+
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %description
