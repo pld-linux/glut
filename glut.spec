@@ -8,6 +8,7 @@ Group:		X11/Libraries
 Source0:	http://www.opengl.org/developers/documentation/glut/%{name}-%{version}.tar.gz
 # Source0-md5: dc932666e2a1c8a0b148a4c32d111ef3
 Source1:	http://www.opengl.org/developers/documentation/glut/%{name}-3.spec.ps.gz
+# Source1-md5:	7be4cfb04953bca413482890279c8b31
 Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.opengl.org/developers/documentation/
