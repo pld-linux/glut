@@ -6,7 +6,7 @@ Release:	9
 License:	GPL
 Group:		X11/Libraries
 Source0:	http://www.opengl.org/developers/documentation/glut/%{name}-%{version}.tar.gz
-Source1:	http://www.opengl.org/developers/documentstion/glut/%{name}-3.spec.ps.gz
+Source1:	http://www.opengl.org/developers/documentation/glut/%{name}-3.spec.ps.gz
 Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.opengl.org/developers/documentation/
