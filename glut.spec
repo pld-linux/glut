@@ -2,17 +2,20 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	7
+Release:	8
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
+Group(es):	X11/Bibliotecas
 Group(pl):	X11/Biblioteki
 Source0:	http://reality.sgi.com/mjk_asd/glut3/%{name}-%{version}.tar.gz
 Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
+Patch0:		%{name}-examples-paths.patch
 URL:		http://reality.sgi.com/mjk_asd/glut3/
 BuildRequires:	OpenGL-devel
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	Mesa-glut
+Requires:	OpenGL
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -30,6 +33,7 @@ Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name} = %{version}
+Requires:	OpenGL-devel
 Obsoletes:	Mesa-glut-devel
 
 %description devel
@@ -61,13 +65,14 @@ Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 
 %description examples
-Sample program.
+Sample programs.
 
 %description -l pl examples
 Przyk³adowe programy.
 
 %prep
 %setup -q
+%patch -p1
 
 install %{SOURCE1} .
 
@@ -79,35 +84,26 @@ cd lib/glut
 rm -f Makefile
 cp ../../linux/Makefile .
 %{__make} depend
-%{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC"
-
-#make libgle.a
-(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
+%{__make} "BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags} -fPIC" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags} -fPIC"
 
 #make libglsmap.a
-(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
+(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{rpmcflags}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags}")
 
 #make libmui.a
-(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}")
+(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{rpmcflags}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{rpmcflags}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{rpmcflags}")
 
 #prepare to make manuals
-(cd ../../man;xmkmf)
-(cd ../../man/gle; \
-	sed s/XXX/\$\(MANDIR\)/ Imakefile > Imakefile.sed; \
-	rm -f Imakefile; mv Imakefile.sed Imakefile; \
-	xmkmf; \
-	sed s/install::/ii::/ Makefile >Makefile.sed; \
-	sed s/all::// Makefile.sed >Makefile.sed2; \
-	rm -f Makefile; rm -f Makefile.sed; \
-	sed s/ii::/install::/ Makefile.sed2 >Makefile)
+(cd ../../man
+	sed s/gle// Imakefile > Imakefile.tmp
+	mv -f Imakefile.tmp Imakefile
+	xmkmf
+)
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -119,6 +115,7 @@ ln -sf libglut.so.3 $RPM_BUILD_ROOT%{_libdir}/libglut.so
 
 install lib/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
 
+rm -f include/GL/tube.h
 cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 
 (cd man; make DESTDIR=$RPM_BUILD_ROOT MANDIR=%{_mandir}/man3 install.man)
@@ -126,7 +123,9 @@ cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 gzip -9nf NOTICE CHANGES FAQ.glut README*
 
 #installing examples...
-(cd progs; cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version})
+(cd progs
+find . -name Makefile.win -o -name Makefile.sgi -o -name Makefile.bak | xargs rm -f
+cp -rp * $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version})
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig

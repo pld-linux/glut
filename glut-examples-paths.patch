@@ -1,0 +1,585 @@
+diff -Nur glut-3.7.orig/progs/Glut.cf glut-3.7/progs/Glut.cf
+--- glut-3.7.orig/progs/Glut.cf	Thu Jan  1 01:00:00 1970
++++ glut-3.7/progs/Glut.cf	Wed Apr  4 04:06:53 2001
+@@ -0,0 +1,149 @@
++XCOMM Copyright (c) Mark J. Kilgard, 1994, 1997, 1998.
++XCOMM Glut.cf - GLUT distribution Imakefile configuration info
++
++#ifndef MathLibrary /* introduced with X11R6 */
++#define MathLibrary -lm
++#endif
++
++#ifndef SaberProgramTarget /* in X11R5 but removed in X11R6 */
++#define SaberProgramTarget(program,srclist,objlist,locallibs,syslibs)
++#endif
++
++#ifdef SunArchitecture
++
++/*
++ * Solaris has a non-standard way of placing libraries
++ * and header files.  This should work for Template Graphics Systems'
++ * OpenGL implementation, assuming your OGLHOME and OPENWINHOME
++ * environment variables are set correctly.
++ */
++EXTRA_INCLUDES = -I$(TOP)/include -I$(OGLHOME)/include -I$(OPENWINHOME)/include
++OPENGL = -L$(OGLHOME)/lib -lGL -L$(OPENWINHOME) -ldga
++GLU = -L$(OGLHOME)/lib -lGLU
++/* XXX Is this right, Template?? */
++INVENTOR = -L$(OGLHOME)/lib -lInventor
++GLUT_DEPLIBS = $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLUT_LIBS = $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++MUI_DEPLIBS = $(DEPMUI) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++MUI_LIBS = $(MUI) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLE_DEPLIBS = $(DEPGLE) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLE_LIBS = $(GLE) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLSMAP_DEPLIBS = $(DEPGLSMAP) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLSMAP_LIBS = $(GLSMAP) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++
++#else /* Everybody but Sun... */
++#ifdef AlphaArchitecture
++
++/* Alpha suggestions from Andrej Panjkov (mataap@pop.latrobe.edu.au). */
++
++/* Andrej writes:  There is a bug in one of the imake configuration
++   files supplied with Digital Unix 3.2c that will cause the build to
++   fail.  In the file /usr/lib/X11/config/osflib.tmpl, the reference to
++   libXi.a should be changed to libXi.so   (which is in the correct
++   directory /usr/shlib).  Root access is needed to fix this bug.  I
++   don't know if the bug persists in later versions of DU. */
++
++#if 0 /* Not using now. */
++/*
++ * Digital puts all Imake symbols for use with OpenGL in OpenGL.tmpl, so use
++ * the contents of that file instead of the definitions here.
++ */
++#include <OpenGL.tmpl>
++EXTRA_INCLUDES = GLUTInclude
++#else
++EXTRA_INCLUDES = -I$(TOP)/include
++#endif
++
++INVENTOR = -lInventor
++
++/* Suggested by Andrej Panjkov (mataap@pop.latrobe.edu.au) */
++DEPGLUTLIB = $(TOP)/lib/glut/libglut.a
++GLUTLIB = $(TOP)/lib/glut/libglut.a
++
++GLUT_LIBS =       $(GLUTLIB)    $(GLULIB)    $(GLLIB)    $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLUT_DEPLIBS = $(DEPGLUTLIB) $(DEPGLULIB) $(DEPGLLIB) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++MUI_LIBS =       $(MUI) $(GLUTLIB)    $(GLULIB)    $(GLLIB)    $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++MUI_DEPLIBS = $(DEPMUI) $(DEPGLUTLIB) $(DEPGLULIB) $(DEPGLLIB) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLE_LIBS =       $(GLE) $(GLUTLIB)    $(GLULIB)    $(GLLIB)    $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLE_DEPLIBS = $(DEPGLE) $(DEPGLUTLIB) $(DEPGLULIB) $(DEPGLLIB) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLSMAP_LIBS =       $(GLSMAP) $(GLUTLIB)    $(GLULIB)    $(GLLIB)    $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLSMAP_DEPLIBS = $(DEPGLSMAP) $(DEPGLUTLIB) $(DEPGLULIB) $(DEPGLLIB) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++
++#else /* Everybody but Sun or DEC Alpha... */
++
++/*
++ * This should work for normal vendors that put their OpenGL and X
++ * libraries and headers in standard places (or at least where
++ * imake configuration files know where they are).
++ */
++
++#ifdef HPArchitecture
++/* Nate Robbins (E&S) reports that HP does not have its Xmu.h header in
++   the standard place. */
++XMU_HEADERS = /usr/contrib/X11R5/include/
++EXTRA_INCLUDES = -I$(TOP)/include -I$(XMU_HEADERS)
++#else
++EXTRA_INCLUDES = -I/usr/X11R6/include
++#endif
++
++GLUT_DEPLIBS = $(DEPGLUT) $(DEPXMULIB) $(DEPXLIB)
++GLUT_LIBS = $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XLIB) MathLibrary
++OPENGL = -lGL
++GLU = -lGLU
++INVENTOR = -lInventor
++GLUT_DEPLIBS = $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLUT_LIBS = $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++MUI_DEPLIBS = $(DEPMUI) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++MUI_LIBS = $(MUI) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLE_DEPLIBS = $(DEPGLE) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLE_LIBS = $(GLE) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++GLSMAP_DEPLIBS = $(DEPGLSMAP) $(DEPGLUT) $(DEPXMULIB) $(DEPXILIB) $(DEPXLIB)
++GLSMAP_LIBS = $(GLSMAP) $(GLUT) $(GLU) $(OPENGL) $(XMULIB) $(XILIB) $(XLIB) MathLibrary
++
++#endif
++#endif
++
++#ifndef AlphaArchitecture
++DEPGLUT = /usr/X11R6/lib/libglut.so
++GLUT = -L/usr/X11R6/lib -lglut
++#endif
++DEPMUI = /usr/X11R6/lib/libmui.a
++MUI = -L/usr/X11R6/lib -lmui
++DEPGLE = /usr/X11R6/lib/libgle.a
++GLE = -L/usr/X11R6/lib -lgle
++DEPGLSMAP = /usr/X11R6/lib/libglsmap.a
++GLSMAP = -L/usr/X11R6/lib -lglsmap
++
++CXXEXTRA_INCLUDES = -I/usr/include/CC $(EXTRA_INCLUDES)
++GLUT_INVENTOR_DEPLIBS = $(GLUT_DEPLIBS)
++GLUT_INVENTOR_LIBS = $(INVENTOR) $(GLUT_LIBS)
++
++#ifdef SGIArchitecture
++/* For SGI C++ compiler, need to search extra dirs in make depend */
++#undef CplusplusDependIncludes
++#define CplusplusDependIncludes -I$(ROOT)/usr/include/CC
++#endif
++
++#ifndef NullParameter
++/*
++ * NullParameter should be #define'ed to nothing in Imake.rules, but it has
++ * been reported to me that this is not always the case.  If not, let
++ * Glut.cf #define it to nothing.
++ */
++#define NullParameter
++#endif
++
++#define GlutTestProgramTarget(name) NormalProgramTarget(name,name.o,$(GLUT_DEPLIBS),$(GLUT_LIBS),NullParameter)
++#define MuiTestProgramTarget(name) NormalProgramTarget(name,name.o,$(MUI_DEPLIBS),$(MUI_LIBS),NullParameter)
++#define SimpleGlutProgramTarget(name) NormalProgramTarget(name,name.o,$(GLUT_DEPLIBS),$(GLUT_LIBS),NullParameter)
++#define NormalGlutProgramTarget(name,objs) NormalProgramTarget(name,objs,$(GLUT_DEPLIBS),$(GLUT_LIBS),NullParameter)
++#define SimpleMuiProgramTarget(name) NormalProgramTarget(name,name.o,$(MUI_DEPLIBS),$(MUI_LIBS),NullParameter)
++#define NormalMuiProgramTarget(name,objs) NormalProgramTarget(name,objs,$(MUI_DEPLIBS),$(MUI_LIBS),NullParameter)
++#define SimpleGleProgramTarget(name) NormalProgramTarget(name,name.o,$(GLE_DEPLIBS),$(GLE_LIBS),NullParameter)
++#define NormalGleProgramTarget(name,objs) NormalProgramTarget(name,objs,$(GLE_DEPLIBS),$(GLE_LIBS),NullParameter)
++#define SimpleGlsmapProgramTarget(name) NormalProgramTarget(name,name.o,$(GLSMAP_DEPLIBS),$(GLSMAP_LIBS),NullParameter)
++#define NormalGlsmapProgramTarget(name,objs) NormalProgramTarget(name,objs,$(GLSMAP_DEPLIBS),$(GLSMAP_LIBS),NullParameter)
++#define SimpleGlutInventorProgramTarget(name) NormalCplusplusProgramTarget(name,name.o,$(GLUT_INVENTOR_DEPLIBS),$(GLUT_INVENTOR_LIBS),NullParameter)
++#define NormalGlutInventorProgramTarget(name,objs) NormalCplusplusProgramTarget(name,objs,$(GLUT_INVENTOR_DEPLIBS),$(GLUT_INVENTOR_LIBS),NullParameter)
++
++XCOMM end Glut.cf - GLUT distribution Imakefile configuration info
+diff -Nur glut-3.7.orig/progs/advanced/Imakefile glut-3.7/progs/advanced/Imakefile
+--- glut-3.7.orig/progs/advanced/Imakefile	Sat Aug  8 02:20:52 1998
++++ glut-3.7/progs/advanced/Imakefile	Wed Apr  4 04:07:36 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1996, 1998. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = hiddenline haloed silhouette softshadow accumaa field convolve \
+   shadowvol shadowmap projshadow tess textile comp csg dissolve envmap \
+diff -Nur glut-3.7.orig/progs/advanced97/Imakefile glut-3.7/progs/advanced97/Imakefile
+--- glut-3.7.orig/progs/advanced97/Imakefile	Sat Aug  8 02:20:53 1998
++++ glut-3.7/progs/advanced97/Imakefile	Wed Apr  4 04:07:50 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1998. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = accconvolve alphablend alphablendnosort billboard \
+   bubble bump chromakey chromakey_fancy cloud cloudl complexity csg decal dissolve \
+diff -Nur glut-3.7.orig/progs/bucciarelli/Imakefile glut-3.7/progs/bucciarelli/Imakefile
+--- glut-3.7.orig/progs/bucciarelli/Imakefile	Sat Aug  8 02:20:53 1998
++++ glut-3.7/progs/bucciarelli/Imakefile	Wed Apr  4 04:07:59 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = tunnel teapot fire terrain paltex gltest ray glbpaltx
+ 
+diff -Nur glut-3.7.orig/progs/contrib/Imakefile glut-3.7/progs/contrib/Imakefile
+--- glut-3.7.orig/progs/contrib/Imakefile	Sat Aug  8 02:20:54 1998
++++ glut-3.7/progs/contrib/Imakefile	Wed Apr  4 04:08:08 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = lineblend worms rings agv_example fractals moth text3d \
+           noof gears hanoi steam
+diff -Nur glut-3.7.orig/progs/demos/atlantis/Imakefile glut-3.7/progs/demos/atlantis/Imakefile
+--- glut-3.7.orig/progs/demos/atlantis/Imakefile	Sat Aug  8 02:20:54 1998
++++ glut-3.7/progs/demos/atlantis/Imakefile	Wed Apr  4 04:08:20 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = atlantis
+ 
+diff -Nur glut-3.7.orig/progs/demos/bluepony/Imakefile glut-3.7/progs/demos/bluepony/Imakefile
+--- glut-3.7.orig/progs/demos/bluepony/Imakefile	Sat Aug  8 02:20:54 1998
++++ glut-3.7/progs/demos/bluepony/Imakefile	Wed Apr  4 04:09:11 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = bluepony
+ 
+diff -Nur glut-3.7.orig/progs/demos/bounce/Imakefile glut-3.7/progs/demos/bounce/Imakefile
+--- glut-3.7.orig/progs/demos/bounce/Imakefile	Sat Aug  8 02:20:54 1998
++++ glut-3.7/progs/demos/bounce/Imakefile	Wed Apr  4 04:09:18 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = bounce
+ 
+diff -Nur glut-3.7.orig/progs/demos/chess/Imakefile glut-3.7/progs/demos/chess/Imakefile
+--- glut-3.7.orig/progs/demos/chess/Imakefile	Sat Aug  8 02:20:55 1998
++++ glut-3.7/progs/demos/chess/Imakefile	Wed Apr  4 04:09:25 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = chess
+ 
+diff -Nur glut-3.7.orig/progs/demos/geoface/Imakefile glut-3.7/progs/demos/geoface/Imakefile
+--- glut-3.7.orig/progs/demos/geoface/Imakefile	Sat Aug  8 02:20:55 1998
++++ glut-3.7/progs/demos/geoface/Imakefile	Wed Apr  4 04:09:33 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = geoface
+ 
+diff -Nur glut-3.7.orig/progs/demos/glflare/Imakefile glut-3.7/progs/demos/glflare/Imakefile
+--- glut-3.7.orig/progs/demos/glflare/Imakefile	Sat Aug  8 02:20:55 1998
++++ glut-3.7/progs/demos/glflare/Imakefile	Wed Apr  4 04:09:42 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = glflare
+ 
+diff -Nur glut-3.7.orig/progs/demos/gliq/Imakefile glut-3.7/progs/demos/gliq/Imakefile
+--- glut-3.7.orig/progs/demos/gliq/Imakefile	Sat Aug  8 02:20:55 1998
++++ glut-3.7/progs/demos/gliq/Imakefile	Wed Apr  4 04:09:49 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = gliq
+ 
+diff -Nur glut-3.7.orig/progs/demos/glutmech/Imakefile glut-3.7/progs/demos/glutmech/Imakefile
+--- glut-3.7.orig/progs/demos/glutmech/Imakefile	Sat Aug  8 02:20:56 1998
++++ glut-3.7/progs/demos/glutmech/Imakefile	Wed Apr  4 04:09:58 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1996. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = glutmech
+ 
+diff -Nur glut-3.7.orig/progs/demos/ideas/Imakefile glut-3.7/progs/demos/ideas/Imakefile
+--- glut-3.7.orig/progs/demos/ideas/Imakefile	Sat Aug  8 02:20:56 1998
++++ glut-3.7/progs/demos/ideas/Imakefile	Wed Apr  4 04:10:05 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = ideas
+ 
+diff -Nur glut-3.7.orig/progs/demos/lorenz/Imakefile glut-3.7/progs/demos/lorenz/Imakefile
+--- glut-3.7.orig/progs/demos/lorenz/Imakefile	Sat Aug  8 02:20:57 1998
++++ glut-3.7/progs/demos/lorenz/Imakefile	Wed Apr  4 04:10:13 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1996. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = lorenz
+ 
+diff -Nur glut-3.7.orig/progs/demos/newave/Imakefile glut-3.7/progs/demos/newave/Imakefile
+--- glut-3.7.orig/progs/demos/newave/Imakefile	Sat Aug  8 02:20:57 1998
++++ glut-3.7/progs/demos/newave/Imakefile	Wed Apr  4 04:10:19 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1998. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = newave
+ 
+diff -Nur glut-3.7.orig/progs/demos/opengl_logo/Imakefile glut-3.7/progs/demos/opengl_logo/Imakefile
+--- glut-3.7.orig/progs/demos/opengl_logo/Imakefile	Sat Aug  8 02:20:57 1998
++++ glut-3.7/progs/demos/opengl_logo/Imakefile	Wed Apr  4 04:10:27 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = opengl_logo
+ 
+diff -Nur glut-3.7.orig/progs/demos/particle/Imakefile glut-3.7/progs/demos/particle/Imakefile
+--- glut-3.7.orig/progs/demos/particle/Imakefile	Sat Aug  8 02:20:57 1998
++++ glut-3.7/progs/demos/particle/Imakefile	Wed Apr  4 04:10:33 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1998. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = particle
+ 
+diff -Nur glut-3.7.orig/progs/demos/rollercoaster/Imakefile glut-3.7/progs/demos/rollercoaster/Imakefile
+--- glut-3.7.orig/progs/demos/rollercoaster/Imakefile	Sat Aug  8 02:20:58 1998
++++ glut-3.7/progs/demos/rollercoaster/Imakefile	Wed Apr  4 04:10:40 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = rc
+ 
+diff -Nur glut-3.7.orig/progs/demos/skyfly/Imakefile glut-3.7/progs/demos/skyfly/Imakefile
+--- glut-3.7.orig/progs/demos/skyfly/Imakefile	Sat Aug  8 02:20:58 1998
++++ glut-3.7/progs/demos/skyfly/Imakefile	Wed Apr  4 04:10:47 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = skyfly
+ 
+diff -Nur glut-3.7.orig/progs/demos/smooth/Imakefile glut-3.7/progs/demos/smooth/Imakefile
+--- glut-3.7.orig/progs/demos/smooth/Imakefile	Sat Aug  8 02:20:58 1998
++++ glut-3.7/progs/demos/smooth/Imakefile	Wed Apr  4 04:10:53 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = smooth
+ 
+diff -Nur glut-3.7.orig/progs/demos/underwater/Imakefile glut-3.7/progs/demos/underwater/Imakefile
+--- glut-3.7.orig/progs/demos/underwater/Imakefile	Sat Aug  8 02:20:59 1998
++++ glut-3.7/progs/demos/underwater/Imakefile	Wed Apr  4 04:11:07 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = underwater
+ 
+diff -Nur glut-3.7.orig/progs/demos/walker/Imakefile glut-3.7/progs/demos/walker/Imakefile
+--- glut-3.7.orig/progs/demos/walker/Imakefile	Sat Aug  8 02:20:59 1998
++++ glut-3.7/progs/demos/walker/Imakefile	Wed Apr  4 04:11:13 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = walker
+ 
+diff -Nur glut-3.7.orig/progs/demos/yacme/Imakefile glut-3.7/progs/demos/yacme/Imakefile
+--- glut-3.7.orig/progs/demos/yacme/Imakefile	Sat Aug  8 02:20:59 1998
++++ glut-3.7/progs/demos/yacme/Imakefile	Wed Apr  4 04:11:21 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = yacme
+ 
+diff -Nur glut-3.7.orig/progs/examples/Imakefile glut-3.7/progs/examples/Imakefile
+--- glut-3.7.orig/progs/examples/Imakefile	Sat Aug  8 02:20:59 1998
++++ glut-3.7/progs/examples/Imakefile	Wed Apr  4 04:11:30 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = sphere scene movelight glutplane \
+           stroke olympic glutdino dinospin \
+diff -Nur glut-3.7.orig/progs/gameglut/Imakefile glut-3.7/progs/gameglut/Imakefile
+--- glut-3.7.orig/progs/gameglut/Imakefile	Sat Aug  8 02:21:00 1998
++++ glut-3.7/progs/gameglut/Imakefile	Wed Apr  4 04:11:44 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = asteroids
+ 
+diff -Nur glut-3.7.orig/progs/glc/Imakefile glut-3.7/progs/glc/Imakefile
+--- glut-3.7.orig/progs/glc/Imakefile	Sat Aug  8 02:21:00 1998
++++ glut-3.7/progs/glc/Imakefile	Wed Apr  4 04:11:52 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1996. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = glcdemo
+ 
+diff -Nur glut-3.7.orig/progs/gle/Imakefile glut-3.7/progs/gle/Imakefile
+--- glut-3.7.orig/progs/gle/Imakefile	Sat Aug  8 02:21:00 1998
++++ glut-3.7/progs/gle/Imakefile	Wed Apr  4 04:11:59 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ SRCS = beam.c candlestick.c cone.c cylinder.c helix.c helix2.c \
+   helix3.c helix4.c helixtex.c horn.c joinoffset.c mainjoin.c \
+diff -Nur glut-3.7.orig/progs/inventor/Imakefile glut-3.7/progs/inventor/Imakefile
+--- glut-3.7.orig/progs/inventor/Imakefile	Sat Aug  8 02:21:01 1998
++++ glut-3.7/progs/inventor/Imakefile	Wed Apr  4 04:12:06 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ #undef CCsuf
+ #define CCsuf c++
+diff -Nur glut-3.7.orig/progs/mesademos/Imakefile glut-3.7/progs/mesademos/Imakefile
+--- glut-3.7.orig/progs/mesademos/Imakefile	Sat Aug  8 02:21:01 1998
++++ glut-3.7/progs/mesademos/Imakefile	Wed Apr  4 04:12:12 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1996. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = bounce gamma gears isosurf offset reflect spin tess_demo \
+ 	texobj winpos trdemo
+diff -Nur glut-3.7.orig/progs/mui/calc/Imakefile glut-3.7/progs/mui/calc/Imakefile
+--- glut-3.7.orig/progs/mui/calc/Imakefile	Sat Aug  8 02:21:01 1998
++++ glut-3.7/progs/mui/calc/Imakefile	Wed Apr  4 04:12:27 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = calc
+ 
+diff -Nur glut-3.7.orig/progs/perf_harness/Imakefile glut-3.7/progs/perf_harness/Imakefile
+--- glut-3.7.orig/progs/perf_harness/Imakefile	Sat Aug  8 02:21:02 1998
++++ glut-3.7/progs/perf_harness/Imakefile	Wed Apr  4 04:12:34 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = perf_torus
+ 
+diff -Nur glut-3.7.orig/progs/redbook/Imakefile glut-3.7/progs/redbook/Imakefile
+--- glut-3.7.orig/progs/redbook/Imakefile	Sat Aug  8 02:21:02 1998
++++ glut-3.7/progs/redbook/Imakefile	Wed Apr  4 04:12:42 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1994, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = accanti anti bezmesh checker depthcue dof fog fogindex material \
+   mipmap nurbs pickdepth plane polys sccolorlight scene scenebamb \
+diff -Nur glut-3.7.orig/progs/spheremap/glsmap/Imakefile glut-3.7/progs/spheremap/glsmap/Imakefile
+--- glut-3.7.orig/progs/spheremap/glsmap/Imakefile	Sat Aug  8 02:21:02 1998
++++ glut-3.7/progs/spheremap/glsmap/Imakefile	Wed Apr  4 04:12:54 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = rtsmap fakeraytrace
+ 
+diff -Nur glut-3.7.orig/progs/spheremap/hacks/Imakefile glut-3.7/progs/spheremap/hacks/Imakefile
+--- glut-3.7.orig/progs/spheremap/hacks/Imakefile	Sat Aug  8 02:21:03 1998
++++ glut-3.7/progs/spheremap/hacks/Imakefile	Wed Apr  4 04:13:01 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../../Glut.cf"
++#include "../../Glut.cf"
+ 
+ TARGETS = sixviews cview2smap smapmesh
+ 
+diff -Nur glut-3.7.orig/progs/texfont/Imakefile glut-3.7/progs/texfont/Imakefile
+--- glut-3.7.orig/progs/texfont/Imakefile	Sat Aug  8 02:21:03 1998
++++ glut-3.7/progs/texfont/Imakefile	Wed Apr  4 04:13:09 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = txfdemo simpletxf gentexfont showtxf
+ 
+diff -Nur glut-3.7.orig/progs/tiff/Imakefile glut-3.7/progs/tiff/Imakefile
+--- glut-3.7.orig/progs/tiff/Imakefile	Sat Aug  8 02:21:04 1998
++++ glut-3.7/progs/tiff/Imakefile	Wed Apr  4 04:13:16 2001
+@@ -1,7 +1,7 @@
+ 
+ /* Copyright (c) Mark J. Kilgard, 1997. */
+ 
+-#include "../../Glut.cf"
++#include "../Glut.cf"
+ 
+ TARGETS = showtiff textiff writetiff depthdof scalebias tiffsift
+ 
