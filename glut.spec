@@ -151,7 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc NOTICE CHANGES FAQ.glut README*
 %{_includedir}/GL/*.h
 %{_includedir}/mui
-%{_libdir}/lib*.so
+%{_libdir}/libglut.so
 %{_mandir}/man3/*
 
 %files static
