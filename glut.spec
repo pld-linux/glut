@@ -12,10 +12,10 @@ Source0:	http://reality.sgi.com/mjk_asd/glut3/%{name}-%{version}.tar.gz
 Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
 Patch0:		%{name}-examples-paths.patch
 URL:		http://reality.sgi.com/mjk_asd/glut3/
-BuildRequires:	OpenGL-devel
+BuildRequires:	XFree86-OpenGL-devel
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	Mesa-glut
-Requires:	OpenGL
+#Requires:	XFree86-OpenGL
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix		/usr/X11R6
