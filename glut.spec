@@ -17,8 +17,6 @@ Obsoletes:	Mesa-glut
 Requires:	OpenGL
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 
 %description
 A 3-D graphics library which uses the OpenGL API.
