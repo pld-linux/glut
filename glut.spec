@@ -6,7 +6,7 @@ Release:	12
 License:	GPL
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
-# Source0-md5: dc932666e2a1c8a0b148a4c32d111ef3
+# Source0-md5:	dc932666e2a1c8a0b148a4c32d111ef3
 Source1:	http://www.opengl.org/resources/libraries/glut/%{name}-3.spec.ps.gz
 # Source1-md5:	7be4cfb04953bca413482890279c8b31
 Patch0:		%{name}-examples-paths.patch
