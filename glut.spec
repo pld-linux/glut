@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT)
 Name:		glut
 Version:	3.7
-Release:	5
+Release:	6
 License:	GPL
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -10,9 +10,9 @@ Group(pl):	X11/Biblioteki
 Source0:	http://reality.sgi.com/mjk_asd/glut3/%{name}-%{version}.tar.gz
 Source1:	http://reality.sgi.com/mjk_asd/glut3/%{name}-3.spec.ps.gz
 URL:		http://reality.sgi.com/mjk_asd/glut3/
-Obsoletes:	Mesa-glut
 BuildRequires:	OpenGL-devel
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	Mesa-glut
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -29,8 +29,8 @@ Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
-Obsoletes:	Mesa-glut-devel
 Requires:	%{name} = %{version}
+Obsoletes:	Mesa-glut-devel
 
 %description devel
 Header files needed for development aplications using GLUT library.
@@ -44,8 +44,8 @@ Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
-Obsoletes:	Mesa-glut-static
 Requires:	%{name}-devel = %{version}
+Obsoletes:	Mesa-glut-static
 
 %description static
 The static version of the GLUT library.
@@ -79,24 +79,24 @@ cd lib/glut
 rm -f Makefile
 cp ../../linux/Makefile .
 %{__make} depend
-%{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS -fPIC" \
-	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS -fPIC" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS -fPIC"
+%{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fPIC"
 
 #make libgle.a
-(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
-	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
+(cd ../gle; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #make libglsmap.a
-(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
-	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
+(cd ../glsmap; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #make libmui.a
-(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
-	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS")
+(cd ../mui; %{__make} "BOOTSTRAPCFLAGS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CDEBUGFLAGS=" "CCOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}")
 
 #prepare to make manuals
 (cd ../../man;xmkmf)
