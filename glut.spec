@@ -2,8 +2,8 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do u¿ywania z OpenGL
 Name:		glut
 Version:	3.7
-Release:	12
-License:	GPL
+Release:	13
+License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
 # Source0-md5:	dc932666e2a1c8a0b148a4c32d111ef3
