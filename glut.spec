@@ -16,6 +16,7 @@ URL:		http://www.opengl.org/resources/libraries/glut.html
 BuildRequires:	OpenGL-devel
 BuildRequires:	/bin/csh
 Requires:	OpenGL
+Provides:	OpenGL-glut = %{version}
 Obsoletes:	Mesa-glut
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -33,6 +34,7 @@ Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-devel
+Provides:	OpenGL-glut-devel = %{version}
 Obsoletes:	Mesa-glut-devel
 
 %description devel
@@ -46,6 +48,7 @@ Summary:	GLUT Static libraries
 Summary(pl):	Biblioteki statyczne do biblioteki GLUT
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Provides:	OpenGL-glut-static = %{version}
 Obsoletes:	Mesa-glut-static
 
 %description static
@@ -144,7 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libglut.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
