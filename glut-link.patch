@@ -5,7 +5,7 @@
  
  libglut.so: $(OBJS)
 -	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS)
-+	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib -lX11 -lXmu -lXi -lGL -lGLU -lm
++	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -lX11 -lXmu  -lGL -lGLU -lm
  	$(_NULLCMD_)
  
  clean::

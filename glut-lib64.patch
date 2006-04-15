@@ -37,23 +37,23 @@ diff -durN -x '*~' glut-3.7.orig/progs/Glut.cf glut-3.7/progs/Glut.cf
  #endif
  
  #ifndef AlphaArchitecture
--DEPGLUT = /usr/X11R6/lib/libglut.so
--GLUT = -L/usr/X11R6/lib -lglut
-+DEPGLUT = /usr/X11R6/lib64/libglut.so
-+GLUT = -L/usr/X11R6/lib64 -lglut
+-DEPGLUT = /usr/lib/libglut.so
+-GLUT = -lglut
++DEPGLUT = /usr/lib64/libglut.so
++GLUT = -lglut
  #endif
--DEPMUI = /usr/X11R6/lib/libmui.a
--MUI = -L/usr/X11R6/lib -lmui
--DEPGLE = /usr/X11R6/lib/libgle.a
--GLE = -L/usr/X11R6/lib -lgle
--DEPGLSMAP = /usr/X11R6/lib/libglsmap.a
--GLSMAP = -L/usr/X11R6/lib -lglsmap
-+DEPMUI = /usr/X11R6/lib64/libmui.a
-+MUI = -L/usr/X11R6/lib64 -lmui
-+DEPGLE = /usr/X11R6/lib64/libgle.a
-+GLE = -L/usr/X11R6/lib64 -lgle
-+DEPGLSMAP = /usr/X11R6/lib64/libglsmap.a
-+GLSMAP = -L/usr/X11R6/lib64 -lglsmap
+-DEPMUI = /usr/lib/libmui.a
+-MUI = -lmui
+-DEPGLE = /usr/lib/libgle.a
+-GLE = -lgle
+-DEPGLSMAP = /usr/lib/libglsmap.a
+-GLSMAP = -lglsmap
++DEPMUI = /usr/lib64/libmui.a
++MUI = -lmui
++DEPGLE = /usr/lib64/libgle.a
++GLE = -lgle
++DEPGLSMAP = /usr/lib64/libglsmap.a
++GLSMAP = -lglsmap
  
  CXXEXTRA_INCLUDES = -I/usr/include/CC $(EXTRA_INCLUDES)
  GLUT_INVENTOR_DEPLIBS = $(GLUT_DEPLIBS)
