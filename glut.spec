@@ -13,7 +13,12 @@ Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-lib64.patch
 URL:		http://www.opengl.org/resources/libraries/glut.html
-BuildRequires:	OpenGL-devel
+BuildRequires:	OpenGL-GLU-devel
+BuildRequires:	xorg-cf-files >= 1.0.1-0.2
+BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXmu-devel
+BuildRequires:	xorg-util-gccmakedep
+BuildRequires:	xorg-util-imake
 BuildRequires:	/bin/csh
 Requires:	OpenGL
 Provides:	OpenGL-glut = %{version}
@@ -33,7 +38,7 @@ Summary:	GLUT Development environment
 Summary(pl):	¦rodowisko programistyczne GLUT
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	OpenGL-devel
+Requires:	OpenGL-GLU-devel
 Provides:	OpenGL-glut-devel = %{version}
 Obsoletes:	Mesa-glut-devel
 
