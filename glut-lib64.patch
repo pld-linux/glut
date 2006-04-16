@@ -1,6 +1,6 @@
-diff -durN -x '*~' glut-3.7.orig/linux/Makefile glut-3.7/linux/Makefile
---- glut-3.7.orig/linux/Makefile	2004-12-29 17:34:31.000000000 +0000
-+++ glut-3.7/linux/Makefile	2004-12-29 17:37:14.561981560 +0000
+diff -urN glut-3.7/linux/Makefile glut-3.7.new/linux/Makefile
+--- glut-3.7/linux/Makefile	2006-04-16 22:23:07.000000000 +0200
++++ glut-3.7.new/linux/Makefile	2006-04-16 22:38:54.000000000 +0200
 @@ -87,8 +87,8 @@
        IXXINCLUDES = -i '<X11/Fresco/enter-scope.h>'
  
@@ -21,39 +21,25 @@ diff -durN -x '*~' glut-3.7.orig/linux/Makefile glut-3.7/linux/Makefile
    EXTRA_LDOPTIONS =
    EXTRA_LIBRARIES =
               TAGS = ctags
-@@ -531,7 +531,7 @@
- all:: libglut.so
- 
- libglut.so: $(OBJS)
--	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib -lX11 -lXmu -lXi -lGL -lGLU -lm
-+	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -L/usr/X11R6/lib64 -lX11 -lXmu -lXi -lGL -lGLU -lm
- 	$(_NULLCMD_)
- 
- clean::
-diff -durN -x '*~' glut-3.7.orig/progs/Glut.cf glut-3.7/progs/Glut.cf
---- glut-3.7.orig/progs/Glut.cf	2004-12-29 17:34:31.000000000 +0000
-+++ glut-3.7/progs/Glut.cf	2004-12-29 17:38:23.774459664 +0000
-@@ -104,15 +104,15 @@
+diff -urN glut-3.7/progs/Glut.cf glut-3.7.new/progs/Glut.cf
+--- glut-3.7/progs/Glut.cf	2006-04-16 22:23:07.000000000 +0200
++++ glut-3.7.new/progs/Glut.cf	2006-04-16 22:41:52.000000000 +0200
+@@ -104,14 +104,14 @@
  #endif
  
  #ifndef AlphaArchitecture
 -DEPGLUT = /usr/lib/libglut.so
--GLUT = -lglut
 +DEPGLUT = /usr/lib64/libglut.so
-+GLUT = -lglut
+ GLUT = -lglut
  #endif
 -DEPMUI = /usr/lib/libmui.a
--MUI = -lmui
--DEPGLE = /usr/lib/libgle.a
--GLE = -lgle
--DEPGLSMAP = /usr/lib/libglsmap.a
--GLSMAP = -lglsmap
 +DEPMUI = /usr/lib64/libmui.a
-+MUI = -lmui
+ MUI = -lmui
+-DEPGLE = /usr/lib/libgle.a
 +DEPGLE = /usr/lib64/libgle.a
-+GLE = -lgle
+ GLE = -lgle
+-DEPGLSMAP = /usr/lib/libglsmap.a
 +DEPGLSMAP = /usr/lib64/libglsmap.a
-+GLSMAP = -lglsmap
+ GLSMAP = -lglsmap
  
  CXXEXTRA_INCLUDES = -I/usr/include/CC $(EXTRA_INCLUDES)
- GLUT_INVENTOR_DEPLIBS = $(GLUT_DEPLIBS)
