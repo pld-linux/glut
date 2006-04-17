@@ -15,7 +15,7 @@ Patch2:		%{name}-lib64.patch
 URL:		http://www.opengl.org/resources/libraries/glut.html
 BuildRequires:	/bin/csh
 BuildRequires:	OpenGL-GLU-devel
-BuildRequires:	xorg-cf-files >= 1.0.1-0.2
+BuildRequires:	xorg-cf-files >= 1.0.1-0.3
 BuildRequires:	xorg-lib-libXi-devel
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-util-gccmakedep
