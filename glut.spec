@@ -1,5 +1,5 @@
 Summary:	OpenGL Utility Toolkit (GLUT)
-Summary(pl):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do uøywania z OpenGL
+Summary(pl.UTF-8):   OpenGL Utility Toolkit (GLUT) - toolkit graficzny do u≈ºywania z OpenGL
 Name:		glut
 Version:	3.7
 Release:	15
@@ -30,12 +30,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 A 3-D graphics library which uses the OpenGL API.
 
-%description -l pl
-Biblioteka graficzna 3D uøywaj±ca API z OpenGL.
+%description -l pl.UTF-8
+Biblioteka graficzna 3D u≈ºywajƒÖca API z OpenGL.
 
 %package devel
 Summary:	GLUT Development environment
-Summary(pl):	¶rodowisko programistyczne GLUT
+Summary(pl.UTF-8):   ≈örodowisko programistyczne GLUT
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-GLU-devel
@@ -45,12 +45,12 @@ Obsoletes:	Mesa-glut-devel
 %description devel
 Header files needed for development aplications using GLUT library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe dla biblioteki GLUT.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla biblioteki GLUT.
 
 %package static
 Summary:	GLUT Static libraries
-Summary(pl):	Biblioteki statyczne do biblioteki GLUT
+Summary(pl.UTF-8):   Biblioteki statyczne do biblioteki GLUT
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	OpenGL-glut-static = %{version}
@@ -59,19 +59,19 @@ Obsoletes:	Mesa-glut-static
 %description static
 The static version of the GLUT library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne dla biblioteki GLUT.
 
 %package examples
 Summary:	GLUT demonstration programs
-Summary(pl):	GLUT programy demonstracyjne
+Summary(pl.UTF-8):   GLUT programy demonstracyjne
 Group:		Development/Libraries
 
 %description examples
 Sample programs.
 
-%description examples -l pl
-Przyk≥adowe programy.
+%description examples -l pl.UTF-8
+Przyk≈Çadowe programy.
 
 %prep
 %setup -q
