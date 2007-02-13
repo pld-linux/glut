@@ -1,5 +1,5 @@
 Summary:	OpenGL Utility Toolkit (GLUT)
-Summary(pl.UTF-8):   OpenGL Utility Toolkit (GLUT) - toolkit graficzny do używania z OpenGL
+Summary(pl.UTF-8):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do używania z OpenGL
 Name:		glut
 Version:	3.7
 Release:	15
@@ -35,7 +35,7 @@ Biblioteka graficzna 3D używająca API z OpenGL.
 
 %package devel
 Summary:	GLUT Development environment
-Summary(pl.UTF-8):   Środowisko programistyczne GLUT
+Summary(pl.UTF-8):	Środowisko programistyczne GLUT
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-GLU-devel
@@ -50,7 +50,7 @@ Pliki nagłówkowe dla biblioteki GLUT.
 
 %package static
 Summary:	GLUT Static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne do biblioteki GLUT
+Summary(pl.UTF-8):	Biblioteki statyczne do biblioteki GLUT
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	OpenGL-glut-static = %{version}
@@ -64,7 +64,7 @@ Biblioteki statyczne dla biblioteki GLUT.
 
 %package examples
 Summary:	GLUT demonstration programs
-Summary(pl.UTF-8):   GLUT programy demonstracyjne
+Summary(pl.UTF-8):	GLUT programy demonstracyjne
 Group:		Development/Libraries
 
 %description examples
