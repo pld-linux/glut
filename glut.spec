@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do u¿ywania z OpenGL
 Name:		glut
 Version:	3.7
-Release:	14
+Release:	15
 License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
@@ -18,6 +18,7 @@ BuildRequires:	/bin/csh
 Requires:	OpenGL
 Provides:	OpenGL-glut = %{version}
 Obsoletes:	Mesa-glut
+Obsoletes:	freeglut
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
@@ -36,6 +37,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	OpenGL-devel
 Provides:	OpenGL-glut-devel = %{version}
 Obsoletes:	Mesa-glut-devel
+Obsoletes:	freeglut-devel
 
 %description devel
 Header files needed for development aplications using GLUT library.
@@ -50,6 +52,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	OpenGL-glut-static = %{version}
 Obsoletes:	Mesa-glut-static
+Obsoletes:	freeglut-static
 
 %description static
 The static version of the GLUT library.
