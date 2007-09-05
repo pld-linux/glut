@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl.UTF-8):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do używania z OpenGL
 Name:		glut
 Version:	3.7
-Release:	17
+Release:	18
 License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
@@ -129,6 +129,8 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man3,%{_includedir}} \
 
 install lib/glut/libglut.so.*.* $RPM_BUILD_ROOT%{_libdir}
 ln -sf libglut.so.3 $RPM_BUILD_ROOT%{_libdir}/libglut.so
+
+(cd $RPM_BUILD_ROOT%{_libdir} ; /sbin/ldconfig -n .)
 
 install lib/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
 
