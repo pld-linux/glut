@@ -7,8 +7,6 @@ License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
 # Source0-md5:	dc932666e2a1c8a0b148a4c32d111ef3
-Source1:	http://www.opengl.org/resources/libraries/glut/%{name}-3.spec.ps.gz
-# Source1-md5:	7be4cfb04953bca413482890279c8b31
 Patch0:		%{name}-examples-paths.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-lib64.patch
@@ -81,8 +79,6 @@ Przykładowe programy.
 %patch2 -p1
 %endif
 
-install %{SOURCE1} .
-
 %build
 rm -f Glut.cf
 cp -f linux/Glut.cf .
@@ -154,20 +150,28 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc NOTICE CHANGES FAQ.glut README README.{fortran,glut2,glut3,man,mui,xinput}
 %attr(755,root,root) %{_libdir}/libglut.so.*.*
-%ghost %{_libdir}/libglut.so.3
+%attr(755,root,root) %ghost %{_libdir}/libglut.so.3
 
 %files devel
 %defattr(644,root,root,755)
-%doc NOTICE CHANGES FAQ.glut README*
-%{_includedir}/GL/*.h
+%attr(755,root,root) %{_libdir}/libglut.so
+%{_includedir}/GL/glut.h
+# Fortran GL/GLU/GLUT interface
+%{_includedir}/GL/fgl.h
+%{_includedir}/GL/fglu.h
+%{_includedir}/GL/fglut.h
+# other extensions
+%{_includedir}/GL/glsmap.h
 %{_includedir}/mui
-%{_libdir}/libglut.so
-%{_mandir}/man3/*
+%{_mandir}/man3/glut*.3xglut*
+%{_mandir}/man3/intro.3xglut*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libglsmap.a
+%{_libdir}/libmui.a
 
 %files examples
 %defattr(644,root,root,755)
