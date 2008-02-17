@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl.UTF-8):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do używania z OpenGL
 Name:		glut
 Version:	3.7
-Release:	18
+Release:	19
 License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
@@ -133,10 +133,6 @@ install lib/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
 rm -f include/GL/tube.h
 cp -rp include/* $RPM_BUILD_ROOT%{_includedir}
 
-%{__make} -C man install.man \
-	DESTDIR=$RPM_BUILD_ROOT \
-	MANDIR=%{_mandir}/man3
-
 #installing examples...
 cd progs
 find . -name Makefile.win -o -name Makefile.sgi -o -name Makefile.bak | xargs rm -f
@@ -165,8 +161,6 @@ rm -rf $RPM_BUILD_ROOT
 # other extensions
 %{_includedir}/GL/glsmap.h
 %{_includedir}/mui
-%{_mandir}/man3/glut*.3xglut*
-%{_mandir}/man3/intro.3xglut*
 
 %files static
 %defattr(644,root,root,755)
