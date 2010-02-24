@@ -2,7 +2,7 @@ Summary:	OpenGL Utility Toolkit (GLUT)
 Summary(pl.UTF-8):	OpenGL Utility Toolkit (GLUT) - toolkit graficzny do używania z OpenGL
 Name:		glut
 Version:	3.7
-Release:	19
+Release:	20
 License:	distributable
 Group:		Libraries
 Source0:	http://www.opengl.org/resources/libraries/glut/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Patch2:		%{name}-lib64.patch
 URL:		http://www.opengl.org/resources/libraries/glut.html
 BuildRequires:	/bin/csh
 BuildRequires:	OpenGL-GLU-devel
+BuildRequires:	glew-devel
 BuildRequires:	xorg-cf-files >= 1.0.1-0.3
 BuildRequires:	xorg-lib-libXi-devel
 BuildRequires:	xorg-lib-libXmu-devel
@@ -89,27 +90,33 @@ cp -f linux/Makefile lib/glut
 
 %{__make} -C lib/glut depend
 %{__make} -C lib/glut \
-	"BOOTSTRAPCFLAGS=%{rpmcflags} -fPIC" \
-	"CDEBUGFLAGS=" \
-	"CCOPTIONS=%{rpmcflags} -fPIC" \
-	"CXXDEBUGFLAGS=" \
-	"CXXOPTIONS=%{rpmcflags} -fPIC"
+	BOOTSTRAPCFLAGS="-Wall %{rpmcflags} -fPIC" \
+	CDEBUGFLAGS= \
+	CCOPTIONS="-Wall %{rpmcflags} -fPIC" \
+	CXXDEBUGFLAGS= \
+	CXXOPTIONS="-Wall %{rpmcflags} -fPIC" \
+	CC="%{__cc}" \
+	LDFLAGS="%{rpmldflags}"
 
 #make libglsmap.a
 %{__make} -C lib/glsmap \
-	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
-	"CDEBUGFLAGS=" \
-	"CCOPTIONS=%{rpmcflags}" \
-	"CXXDEBUGFLAGS=" \
-	"CXXOPTIONS=%{rpmcflags}"
+	BOOTSTRAPCFLAGS="-Wall %{rpmcflags}" \
+	CDEBUGFLAGS= \
+	CCOPTIONS="-Wall %{rpmcflags}" \
+	CXXDEBUGFLAGS= \
+	CXXOPTIONS="-Wall %{rpmcflags}" \
+	CC="%{__cc}" \
+	LDFLAGS="%{rpmldflags}"
 
 #make libmui.a
 %{__make} -C lib/mui \
-	"BOOTSTRAPCFLAGS=%{rpmcflags}" \
-	"CDEBUGFLAGS=" \
-	"CCOPTIONS=%{rpmcflags}" \
-	"CXXDEBUGFLAGS=" \
-	"CXXOPTIONS=%{rpmcflags}"
+	BOOTSTRAPCFLAGS="-Wall %{rpmcflags}" \
+	CDEBUGFLAGS= \
+	CCOPTIONS="-Wall %{rpmcflags}" \
+	CXXDEBUGFLAGS= \
+	CXXOPTIONS="-Wall %{rpmcflags}" \
+	CC="%{__cc}" \
+	LDFLAGS="%{rpmldflags}"
 
 #prepare to make manuals
 cd man
