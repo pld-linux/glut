@@ -5,7 +5,17 @@
  
  libglut.so: $(OBJS)
 -	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS)
-+	gcc -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -lX11 -lXmu -lXi -lGL -lGLU -lm
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -Wl,-soname,libglut.so.3 -o libglut.so.3.7 $(OBJS) -lX11 -lXmu -lXi -lGL -lGLU -lGLEW -lm
  	$(_NULLCMD_)
  
  clean::
+--- glut-3.7/lib/glut/glut_vidresize.c~	2010-02-24 19:26:41.029661005 +0100
++++ glut-3.7/lib/glut/glut_vidresize.c	2010-02-24 19:26:50.469371483 +0100
+@@ -6,6 +6,7 @@
+    implied. This program is -not- in the public domain. */
+ 
+ #include <stdlib.h>
++#include <GL/glxew.h>
+ 
+ #if !defined(_WIN32)
+ #include <GL/glx.h>
