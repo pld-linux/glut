@@ -87,7 +87,7 @@ diff -Nur glut-3.7.orig/progs/Glut.cf glut-3.7/progs/Glut.cf
 +XMU_HEADERS = /usr/contrib/X11R5/include/
 +EXTRA_INCLUDES = -I$(TOP)/include -I$(XMU_HEADERS)
 +#else
-+EXTRA_INCLUDES =
++EXTRA_INCLUDES = -I$(TOP)/include
 +#endif
 +
 +GLUT_DEPLIBS = $(DEPGLUT) $(DEPXMULIB) $(DEPXLIB)
